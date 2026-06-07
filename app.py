@@ -19,7 +19,7 @@ st.caption("Asisten AI berbasis dokumen whitepaper Bitcoin, Ethereum, dan Solana
 def load_models():
     embedder = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 
-    MODEL_ID  = "Qwen/Qwen2.5-1.5B-Instruct"
+    MODEL_ID  = "Qwen/Qwen2.5-0.5B-Instruct"
     tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)
     model     = AutoModelForCausalLM.from_pretrained(
         MODEL_ID,
