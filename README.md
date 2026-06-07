@@ -1,10 +1,19 @@
+---
+title: Blockchain RAG Chatbot
+emoji: 🚀
+colorFrom: blue
+colorTo: indigo
+sdk: docker
+pinned: false
+---
+
 # Project Chatbot RAG Blockchain [Hans Joseph B. W. Silitonga]
 
 RAG Chatbot — NoLimit Indonesia Data Scientist Intern Technical Test (Task Option C).
 
 An AI chatbot that answers questions about Bitcoin, Ethereum, and Solana based strictly on their official whitepapers, with cited sources on every answer.
 
-🚀 **Live Demo:** [https://blockchain-rag-chatbot.streamlit.app/](https://blockchain-rag-chatbot.streamlit.app/)
+🚀 **Live Demo:** [https://huggingface.co/spaces/hanssil/Blockchain-RAG-Chatbot](https://huggingface.co/spaces/hanssil/Blockchain-RAG-Chatbot)
 
 ---
 
@@ -15,7 +24,7 @@ PDF Documents → Text Extraction (PyMuPDF) → Chunking (1000 chars, 150 overla
      → Embedding (MiniLM-L6-v2) → FAISS Vector Index
                                           ↓
 User Query → Query Embedding → Similarity Search (Top-4 chunks) → RAG Prompt
-     → LLM (Qwen2.5-1.5B-Instruct) → Answer + Citation```
+     → LLM (Qwen2.5-1.5B-Instruct) → Answer + Citation
 
 See `flowchart.png` for the full visual pipeline diagram.
 
