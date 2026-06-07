@@ -19,7 +19,7 @@ st.caption("Asisten AI berbasis dokumen whitepaper Bitcoin, Ethereum, dan Solana
 def load_models():
     embedder = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 
-    MODEL_ID  = "Qwen/Qwen2.5-0.5B-Instruct"
+    MODEL_ID  = "Qwen/Qwen2.5-1.5B-Instruct"
     tokenizer = AutoTokenizer.from_pretrained(MODEL_ID)
     model     = AutoModelForCausalLM.from_pretrained(
         MODEL_ID,
@@ -107,9 +107,10 @@ def generate_answer(user_question, retrieved_chunks):
     context = "\n\n".join(context_parts)
 
     system_msg = (
-        "You are a helpful assistant. Answer the user's question using ONLY the "
-        "provided context passages. If the answer is not in the context, say you don't know. "
-        "Reply in the same language the user used. Keep technical terms as-is."
+        "You are an AI assistant. Answer the user's question using ONLY the provided context.\n"
+        "1. Reply in the EXACT SAME LANGUAGE as the user's prompt. Keep technical terms as-is.\n"
+        "2. If the answer is not in the context, or the input is a random word, do NOT guess and do NOT echo the input.\n"
+        "3. If you cannot answer based on the context, you MUST start your response with the exact tag '[NOT_FOUND]' followed by an apology in the user's language (e.g., '[NOT_FOUND] Maaf, informasi tidak ditemukan.' or '[NOT_FOUND] Sorry, the information is not found.')."
     )
     messages = [
         {"role": "system", "content": system_msg},
@@ -145,7 +146,13 @@ if prompt_user := st.chat_input("Tanyakan sesuatu tentang Bitcoin, Ethereum, ata
             chunks         = retrieve(prompt_user)
             answer         = generate_answer(prompt_user, chunks)
             citation_text  = format_citations(chunks)
-            final_response = f"{answer}\n\n**Sumber:** {citation_text}"
+
+            # --- LOGIKA FILTERING MULTI-BAHASA ---
+            if "[NOT_FOUND]" in answer:
+                clean_answer = answer.replace("[NOT_FOUND]", "").strip()
+                final_response = clean_answer  # Tampilkan jawaban bersih tanpa sitasi
+            else:
+                final_response = f"{answer}\n\n**Sumber:** {citation_text}"
 
         st.markdown(final_response)
 

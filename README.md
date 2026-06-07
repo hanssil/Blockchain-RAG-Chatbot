@@ -4,17 +4,18 @@ RAG Chatbot — NoLimit Indonesia Data Scientist Intern Technical Test (Task Opt
 
 An AI chatbot that answers questions about Bitcoin, Ethereum, and Solana based strictly on their official whitepapers, with cited sources on every answer.
 
+🚀 **Live Demo:** [https://blockchain-rag-chatbot.streamlit.app/](https://blockchain-rag-chatbot.streamlit.app/)
+
 ---
 
 ## Pipeline
 
-```
+```text
 PDF Documents → Text Extraction (PyMuPDF) → Chunking (1000 chars, 150 overlap)
      → Embedding (MiniLM-L6-v2) → FAISS Vector Index
                                           ↓
 User Query → Query Embedding → Similarity Search (Top-4 chunks) → RAG Prompt
-     → LLM (Qwen2.5-1.5B-Instruct) → Answer + Citation
-```
+     → LLM (Qwen2.5-1.5B-Instruct) → Answer + Citation```
 
 See `flowchart.png` for the full visual pipeline diagram.
 
